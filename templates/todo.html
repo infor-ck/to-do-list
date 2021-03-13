@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>To-do list</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap" rel="stylesheet">
+	<link rel="stylesheet" type="text/css"
+		href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</head>
+
+<script>
+	$(document).ready(function () {
+		var added = '{{ task|length }}';
+		var completed = '{{ complete|length }}';
+		if (added == '0' && completed == '0') {
+			$('#tasks').hide();
+			$('#nothing').addClass('block').removeClass('hidden');
+		}
+
+		$('#submit').click(function (event) {
+			var count = $('#input').val().length;
+			if (count == 0) {
+				event.preventDefault();
+				$('#input').addClass('input-invalid');
+				$('#form-err').text('Input cannot be empty.')
+			}
+		});
+
+		accordion = function(x) {
+			if($(x).is(':hidden')) $(x).slideDown('200');
+			else $(x).slideUp('200');
+			return false;
+		};
+
+		$('.btn-accordion').click(function() {
+			$(this).toggleClass('mdi-chevron-up').toggleClass('mdi-chevron-down');
+		});
+	});
+</script>
+
+<body class="min-h-screen bg-gray-200">
+	<main class="flex justify-center">
+		<div class="container flex flex-wrap">
+
+			<div class="w-full md:w-1/2 p-5 flex justify-center items-center md:min-h-screen">
+				<div class="inline-block md:p-5">
+					<img src="{{ url_for('static', filename='img/task.svg') }}" alt="" class="w-4/5">
+					<h2 class="text-4xl text-gray-900 font-bold mt-5">Todo List</h2>
+					<p class="text-gray-600"></p>
+				</div>
+			</div>
+
+			<div id="card" class="w-full md:w-1/2 p-5 md:py-16 flex justify-center items-center md:h-screen">
+				<div class="p-8 bg-white rounded-lg shadow-xl h-full overflow-y-scroll custom-scroll-bar">
+					<div id="form" class='mb-2'>
+						<form action="/addtask/" method="post" class="flex items-center justify-between w-full">
+							<input type="text" class="custom-input w-full mr-3 " name="newtask"
+								placeholder="add new task" id="input">
+							<input type="submit" id="submit" value="Add" class="btn btn-primary">
+						</form>
+						<p id="form-err" class="text-red-500"></p>
+					</div>
+
+					<div id="nothing" class="py-5 px-2 text-center hidden">
+						<span class="text-gray-600 mdi mdi-jellyfish-outline text-6xl"></span>
+						<h4 class="text-2xl font-bold">Nothing added</h4>
+						<p class="text-gray-600">Try adding something<br>via the input box above.</p>
+					</div>
+
+					<div id="tasks">
+						<div class="p-3">
+							<div class="flex justify-between items-center">
+								<h2 class="text-blue-500 tracking-widest">{{ task|length }} added task</h2>
+								<button onclick="accordion('#added-tasks')" class="btn-link btn-accordion text-xl mdi mdi-chevron-up"></button>
+							</div>
+							<div id="added-tasks" class="h-auto accordion">
+								{% for item in task %}
+								<div class="p-2 flex justify-between items-center">
+									<div>
+										<a href="/removetask/?completetask={{ loop.index0 }}"
+											class="mdi mdi-circle-outline mr-3 text-lg text-gray-600"></a>
+										<div class="text-gray-900 inline">{{ item }}</div>
+									</div>
+
+
+									<a href="/deltask/?deltask={{ loop.index0 }}"
+										class="mdi mdi-trash-can-outline text-lg text-gray-600"></a>
+								</div>
+								{% endfor %}
+							</div>
+						</div>
+
+						<hr class="border-gray-200 border">
+
+						<div class="p-3">
+							<div class="flex justify-between items-center">
+								<h2 class="text-blue-500 tracking-widest">{{ complete|length }} completed task</h2>
+								<button onclick="accordion('#completed-tasks')" class="btn-link btn-accordion text-xl mdi mdi-chevron-up"></button>
+							</div>
+							<div id="completed-tasks" class="h-auto accordion">
+								{% for com in complete %}
+								<div class="p-2 flex justify-between items-center">
+									<div>
+										<a href="/restore/?back={{ loop.index0 }}"
+											class="mdi mdi-check-circle-outline text-lg ne mr-3"></a>
+										<div class="text-gray-600 line-through inline">{{ com }}</div>
+									</div>
+
+
+									<a href="/delcom/?delet={{ loop.index0 }}"
+										class="mdi mdi-trash-can-outline text-lg text-gray-600"></a>
+								</div>
+								{% endfor %}
+							</div>
+						</div>
+					</div>
+
+
+
+				</div>
+			</div>
+		</div>
+	</main>
+</body>
+
+</html>

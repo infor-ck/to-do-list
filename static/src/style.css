@@ -1,0 +1,167 @@
+/* tailwind build assets/src/style.css -o assets/css/style.css */
+@tailwind base;
+
+@tailwind components;
+
+* {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    box-sizing: border-box;
+}
+
+*::selection {
+    @apply bg-blue-500 text-white;
+}
+
+a {
+    @apply text-blue-500;
+    } a:hover {
+        @apply text-blue-700;
+    }
+
+.min-h-screen-nav {
+    min-height: calc(100vh - 71px);
+}
+
+/* btn */
+.btn {
+    @apply py-2 px-3 rounded inline-block uppercase tracking-widest;
+    font-weight: 600;
+    transition: all .2s ease;
+    }
+    .btn:hover {
+        @apply shadow;
+        transition: all .2s ease;
+    }
+    .btn::selection {
+        background: transparent;
+    }
+
+.btn-lg {
+    padding: 0.75rem 1.75rem 0.75rem 2rem;
+    letter-spacing: 0.25rem;
+    @apply rounded text-lg inline-block uppercase;
+    transition: all .2s ease;
+    }
+    .btn-lg:hover {
+        @apply shadow;
+        transition: all .2s ease;
+    }
+    .btn-lg::selection {
+        background: transparent;
+    }
+
+.btn-primary {
+    @apply bg-blue-500 text-white border border-blue-500;
+    }
+    .btn-primary:hover {
+        @apply bg-blue-600 text-white border-blue-600;
+    }
+    .btn-primary:focus {
+        @apply outline-none;
+    }
+    .btn-primary:active {
+        @apply outline-none bg-blue-800 border-blue-800;
+    }
+
+.btn-danger {
+    @apply bg-red-500 text-white;
+    }
+    .btn-red:hover {
+        @apply bg-red-600 text-white;
+    }
+    .btn-red:focus {
+        @apply outline-none;
+    }
+    .btn-red:active {
+        @apply outline-none bg-red-800;
+    }
+
+.btn-secondary {
+    @apply bg-gray-200 text-gray-800;
+    }
+    .btn-secondary:hover {
+        @apply bg-gray-300 text-gray-800;
+    }
+    .btn-secondary:focus {
+        @apply outline-none;
+    }
+    .btn-secondary:active {
+        @apply outline-none bg-gray-500;
+    }
+
+.btn-success {
+    @apply bg-teal-500 text-white;
+    }
+    .btn-success:hover {
+        @apply bg-teal-600 text-white;
+    }
+    .btn-success:focus {
+        @apply outline-none;
+    }
+    .btn-success:active {
+        @apply outline-none bg-teal-800;
+    }
+
+/* form */
+.custom-checkbox input[type="checkbox"]{
+    display: none;
+    }
+    .custom-checkbox input[type="checkbox"] + label::before{
+        content: "\F12e";
+        @apply inline-block text-gray-200 relative mr-3;
+        font: normal normal normal 24px/1 "Material Design Icons";
+        font-size: inherit;
+    
+    }
+    .custom-checkbox input[type="checkbox"] + label:hover::before{
+        @apply text-gray-400;
+    
+    }
+    .custom-checkbox input[type="checkbox"]:checked + label::before{
+        content: "\F132";
+        @apply inline-block text-indigo-500 relative mr-3;
+        font: normal normal normal 24px/1 "Material Design Icons";
+        font-size: inherit;
+    
+    }
+    .custom-checkbox input[type="checkbox"]:checked + label:hover::before{
+        @apply text-indigo-600;
+    }
+
+.custom-input {
+    @apply py-2 px-3 bg-gray-200 rounded border border-gray-200;
+    transition: background .2s ease-out;
+    }
+    .custom-input:focus {
+        @apply outline-none bg-white border-blue-500;
+    }
+
+.input-invalid {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24" viewBox="0 0 24 24"><path fill="%23F56565" d="M11,15H13V17H11V15M11,7H13V13H11V7M12,2C6.47,2 2,6.5 2,12C2,17.52 6.48,22 12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2M12,20C7.58,20 4,16.42 4,12C4,7.58 7.58,4 12,4C16.42,4 20,7.58 20,12C20,16.42 16.42,20 12,20Z" /></svg>');
+    background-repeat: no-repeat;
+    background-position: right calc(0.375em + 0.1875rem) center;
+    background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+    @apply border border-red-500;
+}
+/* scrollbar */
+.custom-scroll-bar::-webkit-scrollbar {
+    width: 5px;
+    transition: all .2s ease;
+    }
+    .custom-scroll-bar::-webkit-scrollbar:hover {
+        @apply bg-gray-300 rounded;
+        transition: all .2s ease;
+    }
+    .custom-scroll-bar::-webkit-scrollbar-track {
+        @apply bg-transparent rounded;
+    }
+    .custom-scroll-bar::-webkit-scrollbar-thumb {
+        @apply bg-gray-500 rounded;
+    }
+    .custom-scroll-bar::-webkit-scrollbar-thumb:hover {
+        @apply bg-gray-700 rounded;
+    }
+
+
+@tailwind utilities;
